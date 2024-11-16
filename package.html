@@ -3,30 +3,110 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-   <title> Internet Service</title>
+    <title>Internet Service Packages</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-
-	<!-- CSS here -->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-	<link rel="stylesheet" href="assets/css/slicknav.css">
+    
+    <!-- Firebase Compatibility SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    
+    <!-- CSS here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
     <link rel="stylesheet" href="assets/css/flaticon.css">
     <link rel="stylesheet" href="assets/css/progressbar_barfiller.css">
     <link rel="stylesheet" href="assets/css/gijgo.css">
     <link rel="stylesheet" href="assets/css/animate.min.css">
     <link rel="stylesheet" href="assets/css/animated-headline.css">
-	<link rel="stylesheet" href="assets/css/magnific-popup.css">
-	<link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-	<link rel="stylesheet" href="assets/css/themify-icons.css">
-	<link rel="stylesheet" href="assets/css/slick.css">
-	<link rel="stylesheet" href="assets/css/nice-select.css">
-	<link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Custom Styles for Package Cards -->
+    <style>
+        /* Package Card Styles */
+        .package-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 30px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        background-color: #f9f9f9;
+        text-align: center;
+    }
+    .package-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    .package-card .package-header {
+        margin-bottom: 15px;
+    }
+    .package-card .package-header h3 {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #004085;
+    }
+    .package-card .package-price h4 {
+        font-size: 26px;
+        color: #007bff;
+        margin-bottom: 15px;
+    }
+    .package-card .package-details ul {
+        list-style: none;
+        padding: 0;
+        text-align: left;
+    }
+    .package-card .package-details ul li {
+        margin-bottom: 10px;
+        position: relative;
+        padding-left: 25px;
+        color: #555555;
+    }
+    .package-card .package-details ul li::before {
+        content: "✔";
+        position: absolute;
+        left: 0;
+        color: #007bff;
+    }
+    .package-card .package-footer {
+        margin-top: 15px;
+    }
+    .package-card .package-footer a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #ffffff;
+        border-radius: 25px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        font-size: 16px;
+    }
+    .package-card .package-footer a:hover {
+        background-color: #0056b3;
+    }
+
+        /* Responsive Adjustments */
+        @media (max-width: 767px) {
+            .package-card {
+                padding: 20px;
+            }
+            .package-card .package-header h3 {
+                font-size: 20px;
+            }
+            .package-card .package-price h4 {
+                font-size: 24px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- ? Preloader Start -->
+    <!-- Preloader Start -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
             <div class="preloader-inner position-relative">
@@ -37,7 +117,8 @@
             </div>
         </div>
     </div>
-    <!-- Preloader Start -->
+    <!-- Preloader End -->
+
     <header>
         <!-- Header Start -->
         <div class="header-area">
@@ -54,9 +135,9 @@
                                     <div class="header-social">    
                                         <ul>
                                             <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                            <li><a  href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a></li>
                                             <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                            <li> <a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -111,103 +192,44 @@
         </div>
         <!-- Header End -->
     </header>
-    <!-- header end -->
+    <!-- Header End -->
+
     <main>
-        <!--? Pricing Card Start -->
+        <!-- Pricing Card Start -->
         <section class="pricing-card-area section-padding2">
             <div class="container">
-                <!-- Section Tittle -->
+                <!-- Section Title -->
                 <div class="row justify-content-center">
-                    <div class="col-xl-6 col-lg-8 col-md-10 col-sm-10">
+                    <div class="col-xl-8 col-lg-10 col-md-12">
                         <div class="section-tittle text-center mb-100">
-                            <p>Our pricing plan for you</p>
-                            <h2>No hidden charges! choose  your plan wisely.</h2>
+                            <p>Our Pricing Plans</p>
+                            <h2>No Hidden Charges! Choose Your Plan Wisely.</h2>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10">
-                        <div class="single-card text-center mb-30">
-                            <div class="card-top">
-                                <p>Single Package</p>
-                                <h4>Only Broadband connection</h4>
-                            </div>
-                            <div class="card-mid">
-                                <h4>$20.00 <span>/ mo</span></h4>
-                            </div>
-                            <div class="card-bottom">
-                                <ul>
-                                    <li>Line Rental Included</li>
-                                    <li>12 Month Contract</li>
-                                    <li>No Activation Charges</li>
-                                    <li>Up to 12Mbps average Speed</li>
-                                    <li>Enjoy family on weekends</li>
-                                </ul>
-                                <a href="#" class="borders-btn">View Packages</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10">
-                        <div class="single-card text-center mb-30">
-                            <div class="card-top">
-                                <p>Half Package</p>
-                                <h4>Broadband & TV connection</h4>
-                            </div>
-                            <div class="card-mid">
-                                <h4>$25.00 <span>/ mo</span></h4>
-                            </div>
-                            <div class="card-bottom">
-                                <ul>
-                                    <li>Line Rental Included</li>
-                                    <li>12 Month Contract</li>
-                                    <li>No Activation Charges</li>
-                                    <li>Up to 12Mbps average Speed</li>
-                                    <li>Enjoy family on weekends</li>
-                                </ul>
-                                <a href="#" class="borders-btn">View Packages</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10">
-                        <div class="single-card text-center mb-30">
-                            <div class="card-top">
-                                <p>Full  Package</p>
-                                <h4>TV, Broadband And Phone</h4>
-                            </div>
-                            <div class="card-mid">
-                                <h4>$29.00 <span>/ mo</span></h4>
-                            </div>
-                            <div class="card-bottom">
-                                <ul>
-                                    <li>Line Rental Included</li>
-                                    <li>12 Month Contract</li>
-                                    <li>No Activation Charges</li>
-                                    <li>Up to 12Mbps average Speed</li>
-                                    <li>Enjoy family on weekends</li>
-                                </ul>
-                                <a href="#" class="borders-btn">View Packages</a>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Packages List -->
+                <div class="row" id="packagesContainer">
+                    <!-- Packages will be loaded here dynamically -->
                 </div>
             </div>
         </section>
         <!-- Pricing Card End -->
+
         <!-- Latest Offers Start -->
         <div class="latest-wrapper pb-bottom">
             <div class="container">
-                <div class="latest-area latest-height  section-bg2" data-background="assets/img/gallery/section_bg01.png">
-                    <div class="row  align-items-center justify-content-between">
+                <div class="latest-area latest-height section-bg2" data-background="assets/img/gallery/section_bg01.png">
+                    <div class="row align-items-center justify-content-between">
                         <div class="col-xl-5 col-lg-7">
                             <div class="latest-caption">
-                                <h2>Check our unbelievable super  fast Broadband availability in your area.</h2>
+                                <h2>Check Our Unbelievable Super Fast Broadband Availability in Your Area.</h2>
                             </div>
                         </div>
-                        <div class="col-xl-5 col-lg-5 col-md-10 ">
+                        <div class="col-xl-5 col-lg-5 col-md-10">
                             <div class="latest-subscribe">
                                 <form action="#">
-                                    <input type="email" placeholder="Enter Zipcode">
-                                    <button>Check Now</button>
+                                    <input type="email" placeholder="Enter Zipcode" required>
+                                    <button type="submit">Check Now</button>
                                 </form>
                             </div>
                         </div>
@@ -217,11 +239,12 @@
         </div>
         <!-- Latest Offers End -->
     </main>
+
     <footer>
-        <!--? Footer Start-->
+        <!-- Footer Start-->
         <div class="footer-area section-bg" data-background="assets/img/gallery/footer_bg.png">
             <div class="container">
-                 <!-- Brand Area Start -->
+                <!-- Brand Area Start -->
                 <div class="brand-area pt-25 pb-30">
                     <div class="container">
                         <div class="brand-active brand-border pt-50 pb-40">
@@ -257,7 +280,7 @@
                                 </div>
                                 <div class="footer-tittle">
                                     <div class="footer-pera">
-                                        <p class="info1">Receive updates and latest news direct from Simply enter.</p>
+                                        <p class="info1">Receive updates and latest news directly from us.</p>
                                     </div>
                                 </div>
                                 <div class="footer-number">
@@ -272,7 +295,7 @@
                                     <h4>Our Support</h4>
                                     <ul>
                                         <li><a href="#">Advanced</a></li>
-                                        <li><a href="#"> Management</a></li>
+                                        <li><a href="#">Management</a></li>
                                         <li><a href="#">Corporate</a></li>
                                         <li><a href="#">Customer</a></li>
                                         <li><a href="#">Information</a></li>
@@ -296,7 +319,7 @@
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8">
                             <div class="single-footer-caption mb-50">
                                 <div class="footer-tittle">
-                                    <h4>Newslatter</h4>
+                                    <h4>Newsletter</h4>
                                     <div class="footer-pera">
                                         <p class="info1">Subscribe now to get daily updates</p>
                                     </div>
@@ -305,7 +328,7 @@
                                 <div class="footer-form">
                                     <div id="mc_embed_signup">
                                         <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative mail_part" novalidate="true">
-                                            <input type="email" name="EMAIL" id="newsletter-form-email" placeholder=" Email Address " class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email address'">
+                                            <input type="email" name="EMAIL" id="newsletter-form-email" placeholder=" Email Address " class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email address'" required>
                                             <div class="form-icon">
                                                 <button type="submit" name="submit" id="newsletter-submit" class="email_icon newsletter-submit button-contactForm">
                                                     Send
@@ -323,9 +346,13 @@
                     <div class="row d-flex justify-content-between align-items-center">
                         <div class="col-xl-9 col-lg-8">
                             <div class="footer-copy-right">
-                                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                                <p>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with 
+                                    <i class="fa fa-heart" aria-hidden="true"></i> by 
+                                    <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                </p>
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-4">
@@ -345,12 +372,11 @@
     </footer>
 
     <!-- Scroll Up -->
-    <div id="back-top" >
+    <div id="back-top">
         <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
     </div>
 
     <!-- JS here -->
-
     <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
     <!-- Jquery, Popper, Bootstrap -->
     <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
@@ -391,6 +417,77 @@
     <!-- Jquery Plugins, main Jquery -->	
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/main.js"></script>
-    
-    </body>
+
+    <!-- Initialize Firebase and Load Packages -->
+    <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCjDN2loFBsVmZr3pQJGmVi1ZR3SWpeo4k",
+            authDomain: "igzi-418a7.firebaseapp.com",
+            projectId: "igzi-418a7",
+            storageBucket: "igzi-418a7.firebasestorage.app",
+            messagingSenderId: "428960456482",
+            appId: "1:428960456482:web:11690cac87a7a09320cf7b",
+            measurementId: "G-8LGMW1FGS6"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        function redirectToWhatsApp(packageData) {
+        const message = `Hi, I am interested in the following package:\n\n` +
+            `- Speed: ${packageData.speed}\n` +
+            `- Price (30 Days): Rs ${packageData.price30}\n` +
+            `- Price (90 Days): Rs ${packageData.price90}\n` +
+            `- Price (180 Days): Rs ${packageData.price180}\n` +
+            `- Price (365 Days): Rs ${packageData.price365}\n` +
+            `- Price (540 Days): Rs ${packageData.price540}\n` +
+            `- Installation Charge: Rs ${packageData.installationCharge}\n` +
+            `- GPON Box Charge: Rs ${packageData.gponCharge}\n\n` +
+            `Please share further details.`;
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappURL = `https://wa.me/+919167634280?text=${encodedMessage}`;
+        window.open(whatsappURL, '_blank');
+    }
+
+    const packagesContainer = document.getElementById('packagesContainer');
+
+    db.ref('packages').on('value', (snapshot) => {
+        packagesContainer.innerHTML = '';
+        snapshot.forEach((childSnapshot) => {
+            const packageData = childSnapshot.val();
+
+            // Create Package Card
+            const packageCard = document.createElement('div');
+            packageCard.className = 'col-xl-4 col-lg-4 col-md-6 col-sm-12';
+
+            packageCard.innerHTML = `
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>${packageData.speed}</h3>
+                    </div>
+                    <div class="package-price">
+                        <h4>Rs ${packageData.price30} <span>/ 30 Days</span></h4>
+                    </div>
+                    <div class="package-details">
+                        <ul>
+                            <li>Rs ${packageData.price90} for 90 Days</li>
+                            <li>Rs ${packageData.price180} for 180 Days</li>
+                            <li>Rs ${packageData.price365} for 365 Days</li>
+                            <li>Rs ${packageData.price540} for 540 Days</li>
+                            <li>Installation Charge: Rs ${packageData.installationCharge}</li>
+                            <li>GPON Box Charge: Rs ${packageData.gponCharge}</li>
+                        </ul>
+                    </div>
+                    <div class="package-footer">
+                        <a href="#" onclick='redirectToWhatsApp(${JSON.stringify(packageData)})'>Select Package</a>
+                    </div>
+                </div>
+            `;
+            packagesContainer.appendChild(packageCard);
+        });
+    });
+    </script>
+</body>
 </html>

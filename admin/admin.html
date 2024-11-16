@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel - Manage Packages</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Heroicons -->
+    <script src="https://unpkg.com/heroicons@2.0.13/dist/heroicons.min.js"></script>
+    <!-- Firebase SDKs -->
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <!-- Firebase Database SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <style>
+        /* Custom Scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            transition: opacity 0.25s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <!-- Header -->
+    <nav class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-4">
+                    <!-- Logo -->
+                    <div>
+                        <a href="#" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
+                            <!-- Replace with your logo -->
+                            <svg class="h-6 w-6 mr-1 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                            <span class="font-bold">Admin Dashboard</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Navigation -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="dashboard.html" class="py-5 px-3 text-gray-700 hover:text-gray-900">Dashboard</a>
+                    <a href="manage-packages.html" class="py-5 px-3 text-gray-700 hover:text-gray-900">Packages</a>
+                    <button id="logoutBtn" class="py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600 transition duration-300 flex items-center">
+                        <!-- Logout Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h5a1 1 0 110 2H5v10h4a1 1 0 110 2H4a1 1 0 01-1-1V4zm13.293 5.293a1 1 0 010 1.414L16.414 12l-1.707 1.707a1 1 0 01-1.414-1.414L14.586 12l-1.707-1.707a1 1 0 011.414-1.414L16.414 12l1.707-1.707a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Logout
+                    </button>
+                </div>
+                <!-- Mobile button -->
+                <div class="md:hidden flex items-center">
+                    <button class="mobile-menu-button">
+                        <svg class="w-6 h-6 text-gray-700 hover:text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu hidden md:hidden">
+            <a href="dashboard.html" class="block py-2 px-4 text-sm hover:bg-gray-200">Dashboard</a>
+            <a href="manage-packages.html" class="block py-2 px-4 text-sm hover:bg-gray-200">Packages</a>
+            <button id="logoutBtnMobile" class="block w-full text-left py-2 px-4 text-sm bg-red-500 text-white hover:bg-red-600 transition duration-300 flex items-center">
+                <!-- Logout Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h5a1 1 0 110 2H5v10h4a1 1 0 110 2H4a1 1 0 01-1-1V4zm13.293 5.293a1 1 0 010 1.414L16.414 12l-1.707 1.707a1 1 0 01-1.414-1.414L14.586 12l-1.707-1.707a1 1 0 011.414-1.414L16.414 12l1.707-1.707a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Logout
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto p-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Manage Packages</h1>
+
+        <!-- Add Package Card -->
+        <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4 flex items-center">
+                <!-- Add Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                Add New Package
+            </h2>
+            <form id="addPackageForm" class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 font-medium">Speed (e.g., 30 Mbps):</label>
+                    <input type="text" id="speed" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">30 Days Price:</label>
+                    <input type="text" id="price30" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">90 Days Price:</label>
+                    <input type="text" id="price90" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">180 Days Price:</label>
+                    <input type="text" id="price180" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">365 Days Price:</label>
+                    <input type="text" id="price365" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">540 Days Price:</label>
+                    <input type="text" id="price540" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">Installation Charge:</label>
+                    <input type="text" id="installationCharge" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">GPON Box Charge:</label>
+                    <input type="text" id="gponCharge" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition duration-300 flex items-center">
+                        <!-- Save Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Add Package
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Packages Table Card -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4 flex items-center">
+                <!-- Table Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5v4m6-4v4m-6 4h6" />
+                </svg>
+                Existing Packages
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white">
+                    <thead class="bg-gray-200">
+                        <tr>
+                            <th class="py-3 px-6 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Speed</th>
+                            <th class="py-3 px-6 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">30 Days</th>
+                            <th class="py-3 px-6 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">90 Days</th>
+                            <th class="py-3 px-6 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">180 Days</th>
+                            <th class="py-3 px-6 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">365 Days</th>
+                            <th class="py-3 px-6 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">540 Days</th>
+                            <th class="py-3 px-6 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Installation Charge</th>
+                            <th class="py-3 px-6 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">GPON Box Charge</th>
+                            <th class="py-3 px-6 text-center text-xs font-medium text-gray-600 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="packageTable" class="text-gray-700">
+                        <!-- Packages will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Edit Package Modal -->
+    <div id="editModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div id="editModalContent" class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 relative">
+            <button onclick="closeEditModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+                <!-- Close Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4 flex items-center">
+                <!-- Edit Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-5-5l4 4m0 0l4-4m-4 4V3" />
+                </svg>
+                Edit Package
+            </h2>
+            <form id="editPackageForm" class="space-y-4">
+                <input type="hidden" id="editPackageId">
+                <div>
+                    <label class="block text-gray-700 font-medium">Speed (e.g., 30 Mbps):</label>
+                    <input type="text" id="editSpeed" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">30 Days Price:</label>
+                    <input type="text" id="editPrice30" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">90 Days Price:</label>
+                    <input type="text" id="editPrice90" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">180 Days Price:</label>
+                    <input type="text" id="editPrice180" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">365 Days Price:</label>
+                    <input type="text" id="editPrice365" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">540 Days Price:</label>
+                    <input type="text" id="editPrice540" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">Installation Charge:</label>
+                    <input type="text" id="editInstallationCharge" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">GPON Box Charge:</label>
+                    <input type="text" id="editGponCharge" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button type="submit" class="bg-yellow-500 text-white px-6 py-2 rounded-md hover:bg-yellow-600 transition duration-300 flex items-center">
+                        <!-- Update Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h2a2 2 0 012 2v6a2 2 0 01-2 2h-6a2 2 0 01-2-2v-2m-4-4l4 4m0 0l4-4m-4 4V4" />
+                        </svg>
+                        Update
+                    </button>
+                    <button type="button" onclick="closeEditModal()" class="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600 transition duration-300 flex items-center">
+                        <!-- Cancel Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCjDN2loFBsVmZr3pQJGmVi1ZR3SWpeo4k",
+            authDomain: "igzi-418a7.firebaseapp.com",
+            projectId: "igzi-418a7",
+            storageBucket: "igzi-418a7.firebasestorage.app",
+            messagingSenderId: "428960456482",
+            appId: "1:428960456482:web:11690cac87a7a09320cf7b",
+            measurementId: "G-8LGMW1FGS6"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // Add Package
+        document.getElementById('addPackageForm').addEventListener('submit', addPackage);
+        function addPackage(e) {
+            e.preventDefault();
+            const newPackageRef = db.ref('packages').push();
+            newPackageRef.set({
+                speed: document.getElementById('speed').value,
+                price30: document.getElementById('price30').value,
+                price90: document.getElementById('price90').value,
+                price180: document.getElementById('price180').value,
+                price365: document.getElementById('price365').value,
+                price540: document.getElementById('price540').value,
+                installationCharge: document.getElementById('installationCharge').value,
+                gponCharge: document.getElementById('gponCharge').value
+            }).then(() => {
+                alert('Package added successfully!');
+                document.getElementById('addPackageForm').reset();
+            }).catch((error) => {
+                console.error('Error adding package:', error);
+                alert('Failed to add package. Please try again.');
+            });
+        }
+
+        // Load Packages
+        const packageTable = document.getElementById('packageTable');
+        db.ref('packages').on('value', (snapshot) => {
+            packageTable.innerHTML = '';
+            snapshot.forEach((childSnapshot) => {
+                const packageData = childSnapshot.val();
+                const packageId = childSnapshot.key;
+                const row = document.createElement('tr');
+                row.classList.add('hover:bg-gray-100');
+
+                row.innerHTML = `
+                    <td class="py-4 px-6 border-b border-gray-200">${packageData.speed}</td>
+                    <td class="py-4 px-6 border-b border-gray-200">Rs ${packageData.price30}</td>
+                    <td class="py-4 px-6 border-b border-gray-200">Rs ${packageData.price90}</td>
+                    <td class="py-4 px-6 border-b border-gray-200">Rs ${packageData.price180}</td>
+                    <td class="py-4 px-6 border-b border-gray-200">Rs ${packageData.price365}</td>
+                    <td class="py-4 px-6 border-b border-gray-200">Rs ${packageData.price540}</td>
+                    <td class="py-4 px-6 border-b border-gray-200">Rs ${packageData.installationCharge}</td>
+                    <td class="py-4 px-6 border-b border-gray-200">Rs ${packageData.gponCharge}</td>
+                    <td class="py-4 px-6 border-b border-gray-200">
+                        <button onclick="editPackage('${packageId}')" class="text-yellow-500 hover:text-yellow-700">
+                            <!-- Edit Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5m-6 0l4-4m0 0l-4-4m4 4H13" />
+                            </svg>
+                        </button>
+                    </td>
+                    <td class="py-4 px-6 border-b border-gray-200">
+                        <button onclick="deletePackage('${packageId}')" class="text-red-500 hover:text-red-700">
+                            <!-- Delete Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </td>
+                `;
+                packageTable.appendChild(row);
+            });
+        });
+
+        // Edit Package
+        function editPackage(packageId) {
+            const packageRef = db.ref('packages/' + packageId);
+            packageRef.once('value').then((snapshot) => {
+                const packageData = snapshot.val();
+                document.getElementById('editPackageId').value = packageId;
+                document.getElementById('editSpeed').value = packageData.speed;
+                document.getElementById('editPrice30').value = packageData.price30;
+                document.getElementById('editPrice90').value = packageData.price90;
+                document.getElementById('editPrice180').value = packageData.price180;
+                document.getElementById('editPrice365').value = packageData.price365;
+                document.getElementById('editPrice540').value = packageData.price540;
+                document.getElementById('editInstallationCharge').value = packageData.installationCharge;
+                document.getElementById('editGponCharge').value = packageData.gponCharge;
+                document.getElementById('editModal').classList.remove('hidden');
+            }).catch((error) => {
+                console.error('Error fetching package:', error);
+                alert('Failed to fetch package details. Please try again.');
+            });
+        }
+
+        // Update Package
+        document.getElementById('editPackageForm').addEventListener('submit', updatePackage);
+        function updatePackage(e) {
+            e.preventDefault();
+            const packageId = document.getElementById('editPackageId').value;
+            const packageRef = db.ref('packages/' + packageId);
+            packageRef.update({
+                speed: document.getElementById('editSpeed').value,
+                price30: document.getElementById('editPrice30').value,
+                price90: document.getElementById('editPrice90').value,
+                price180: document.getElementById('editPrice180').value,
+                price365: document.getElementById('editPrice365').value,
+                price540: document.getElementById('editPrice540').value,
+                installationCharge: document.getElementById('editInstallationCharge').value,
+                gponCharge: document.getElementById('editGponCharge').value
+            }).then(() => {
+                alert('Package updated successfully!');
+                closeEditModal();
+            }).catch((error) => {
+                console.error('Error updating package:', error);
+                alert('Failed to update package. Please try again.');
+            });
+        }
+
+        // Close Edit Modal
+        function closeEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+            document.getElementById('editPackageForm').reset();
+        }
+
+        // Delete Package
+        function deletePackage(packageId) {
+            if (confirm('Are you sure you want to delete this package?')) {
+                db.ref('packages/' + packageId).remove().then(() => {
+                    alert('Package deleted successfully!');
+                }).catch((error) => {
+                    console.error('Error deleting package:', error);
+                    alert('Failed to delete package. Please try again.');
+                });
+            }
+        }
+
+        // Close modal when clicking outside the modal content
+        window.onclick = function(event) {
+            const modal = document.getElementById('editModal');
+            if (event.target == modal) {
+                closeEditModal();
+            }
+        }
+    </script>
+</body>
+</html>

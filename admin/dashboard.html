@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Heroicons CDN for Icons -->
+    <script src="https://unpkg.com/heroicons@2.0.13/dist/heroicons.min.js"></script>
+    <style>
+        /* Custom Scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    
+    <!-- Header -->
+    <nav class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-4">
+                    <!-- Logo -->
+                    <div>
+                        <a href="#" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
+                            <!-- Replace with your logo -->
+                            <svg class="h-6 w-6 mr-1 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                            <span class="font-bold">Admin Dashboard</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Navigation -->
+                <!-- Navigation -->
+<div class="hidden md:flex items-center space-x-1">
+    <a href="dashboard.html" class="py-5 px-3 text-gray-700 hover:text-gray-900">Dashboard</a>
+    <a href="users.html" class="py-5 px-3 text-gray-700 hover:text-gray-900">Users</a>
+    <a href="admin.html" class="py-5 px-3 text-gray-700 hover:text-gray-900">Packages</a>
+    <a href="contacts.html" class="py-5 px-3 text-gray-700 hover:text-gray-900">Contacts</a>
+    <!-- Logout Button -->
+    <button id="logoutBtn" class="py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600 transition duration-300">
+        Logout
+    </button>
+</div>
+
+                <!-- Mobile button -->
+                <div class="md:hidden flex items-center">
+                    <button class="mobile-menu-button">
+                        <svg class="w-6 h-6 text-gray-700 hover:text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+       <!-- Mobile Menu -->
+<div class="mobile-menu hidden md:hidden">
+    <a href="dashboard.html" class="block py-2 px-4 text-sm hover:bg-gray-200">Dashboard</a>
+    <a href="users.html" class="block py-2 px-4 text-sm hover:bg-gray-200">Users</a>
+    <a href="admin.html" class="block py-2 px-4 text-sm hover:bg-gray-200">Packages</a>
+    <a href="contacts.html" class="block py-2 px-4 text-sm hover:bg-gray-200">Contacts</a>
+    <!-- Logout Button for Mobile -->
+    <button id="logoutBtnMobile" class="block w-full text-left py-2 px-4 text-sm bg-red-500 text-white hover:bg-red-600 transition duration-300">
+        Logout
+    </button>
+</div>
+
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        <!-- Counts Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Users Count Card -->
+            <div class="bg-white rounded-lg shadow-md p-6 flex items-center">
+                <div class="p-3 rounded-full bg-green-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-3-3h-1m-4 0h-1a3 3 0 00-3 3v2h5m-5 0v-2a3 3 0 013-3h1m-4 0a3 3 0 013 3v2h-5z" />
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <h4 class="text-xl font-semibold text-gray-700">Total Users</h4>
+                    <p class="text-3xl font-bold text-gray-900" id="usersCount">0</p>
+                </div>
+            </div>
+            <!-- Packages Count Card -->
+            <div class="bg-white rounded-lg shadow-md p-6 flex items-center">
+                <div class="p-3 rounded-full bg-blue-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <h4 class="text-xl font-semibold text-gray-700">Total Packages</h4>
+                    <p class="text-3xl font-bold text-gray-900" id="packagesCount">0</p>
+                </div>
+            </div>
+            <!-- Contacts Count Card -->
+            <div class="bg-white rounded-lg shadow-md p-6 flex items-center">
+                <div class="p-3 rounded-full bg-yellow-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 10a2 2 0 00-2-2H7l-4 4v8a2 2 0 002 2h14a2 2 0 002-2v-8z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 2a2 2 0 012 2v6a2 2 0 01-2 2h-5l-4 4v-4H7a2 2 0 01-2-2V4a2 2 0 012-2h10z" />
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <h4 class="text-xl font-semibold text-gray-700">Total Contacts</h4>
+                    <p class="text-3xl font-bold text-gray-900" id="contactsCount">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Users Distribution Chart -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">Users Distribution</h3>
+                <canvas id="usersChart"></canvas>
+            </div>
+            <!-- Packages Distribution Chart -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">Packages Distribution</h3>
+                <canvas id="packagesChart"></canvas>
+            </div>
+            <!-- Contacts Over Time Chart -->
+            <div class="bg-white rounded-lg shadow-md p-6 lg:col-span-2">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">Contacts Over Time</h3>
+                <canvas id="contactsChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import { getDatabase, ref, onValue, push, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCjDN2loFBsVmZr3pQJGmVi1ZR3SWpeo4k",
+            authDomain: "igzi-418a7.firebaseapp.com",
+            projectId: "igzi-418a7",
+            storageBucket: "igzi-418a7.appspot.com",
+            messagingSenderId: "428960456482",
+            appId: "1:428960456482:web:11690cac87a7a09320cf7b",
+            measurementId: "G-8LGMW1FGS6"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth(app);
+
+        // Authentication State Listener
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, proceed to load dashboard
+                console.log('User is authenticated:', user.email);
+            } else {
+                // User is signed out, redirect to home/login page
+                window.location.href = '/';
+            }
+        });
+
+        // Logout Functionality
+        const logoutBtn = document.getElementById('logoutBtn');
+        const logoutBtnMobile = document.getElementById('logoutBtnMobile');
+
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                signOut(auth).then(() => {
+                    // Sign-out successful.
+                    window.location.href = '/';
+                }).catch((error) => {
+                    // An error happened.
+                    console.error('Error signing out:', error);
+                });
+            });
+        }
+
+        if (logoutBtnMobile) {
+            logoutBtnMobile.addEventListener('click', () => {
+                signOut(auth).then(() => {
+                    // Sign-out successful.
+                    window.location.href = '/';
+                }).catch((error) => {
+                    // An error happened.
+                    console.error('Error signing out:', error);
+                });
+            });
+        }
+
+        // Function to fetch counts and update UI
+        function fetchCounts() {
+            // Users Count
+            const usersRef = ref(database, 'users');
+            onValue(usersRef, (snapshot) => {
+                const data = snapshot.val();
+                const count = data ? Object.keys(data).length : 0;
+                document.getElementById('usersCount').innerText = count;
+                updateUsersChart(data);
+            });
+
+            // Packages Count
+            const packagesRef = ref(database, 'packages');
+            onValue(packagesRef, (snapshot) => {
+                const data = snapshot.val();
+                const count = data ? Object.keys(data).length : 0;
+                document.getElementById('packagesCount').innerText = count;
+                updatePackagesChart(data);
+            });
+
+            // Contacts Count
+            const contactsRef = ref(database, 'contacts');
+            onValue(contactsRef, (snapshot) => {
+                const data = snapshot.val();
+                const count = data ? Object.keys(data).length : 0;
+                document.getElementById('contactsCount').innerText = count;
+                updateContactsChart(data);
+            });
+        }
+
+        // Initialize Counts on Page Load
+        fetchCounts();
+
+        // Users Chart
+        let usersChart;
+        function updateUsersChart(data) {
+            if (!data) {
+                if (usersChart) {
+                    usersChart.destroy();
+                }
+                return;
+            }
+
+            const labels = Object.values(data).map(user => user.username || user.email);
+            const values = labels.map(() => 1); // Simple count
+
+            if (usersChart) {
+                usersChart.destroy();
+            }
+
+            const ctx = document.getElementById('usersChart').getContext('2d');
+            usersChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '# of Users',
+                        data: values,
+                        backgroundColor: [
+                            'rgba(37, 99, 235, 0.6)',  // Blue-700
+                            'rgba(16, 185, 129, 0.6)', // Green-500
+                            'rgba(234, 179, 8, 0.6)',  // Yellow-500
+                            'rgba(239, 68, 68, 0.6)',  // Red-500
+                            'rgba(168, 85, 247, 0.6)'  // Purple-500
+                        ],
+                        borderColor: [
+                            'rgba(37, 99, 235, 1)',
+                            'rgba(16, 185, 129, 1)',
+                            'rgba(234, 179, 8, 1)',
+                            'rgba(239, 68, 68, 1)',
+                            'rgba(168, 85, 247, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 20,
+                                padding: 15
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    return `${label}: ${value}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Packages Chart
+        let packagesChart;
+        function updatePackagesChart(data) {
+            if (!data) {
+                if (packagesChart) {
+                    packagesChart.destroy();
+                }
+                return;
+            }
+
+            const labels = Object.keys(data);
+            const gponCharges = Object.values(data).map(pkg => parseFloat(pkg.gponCharge) || 0);
+            const installationCharges = Object.values(data).map(pkg => parseFloat(pkg.installationCharge) || 0);
+            const speeds = Object.values(data).map(pkg => parseFloat(pkg.speed) || 0);
+
+            if (packagesChart) {
+                packagesChart.destroy();
+            }
+
+            const ctx = document.getElementById('packagesChart').getContext('2d');
+            packagesChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'GPON Charge',
+                            data: gponCharges,
+                            backgroundColor: 'rgba(16, 185, 129, 0.6)', // Green-500
+                            borderColor: 'rgba(16, 185, 129, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Installation Charge',
+                            data: installationCharges,
+                            backgroundColor: 'rgba(37, 99, 235, 0.6)', // Blue-700
+                            borderColor: 'rgba(37, 99, 235, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Speed (Mbps)',
+                            data: speeds,
+                            backgroundColor: 'rgba(168, 85, 247, 0.6)', // Purple-500
+                            borderColor: 'rgba(168, 85, 247, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    stacked: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                boxWidth: 20,
+                                padding: 15
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.dataset.label || '';
+                                    const value = context.raw || 0;
+                                    return `${label}: ${value}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Amount / Speed'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Contacts Chart
+        let contactsChart;
+        function updateContactsChart(data) {
+            if (!data) {
+                if (contactsChart) {
+                    contactsChart.destroy();
+                }
+                return;
+            }
+
+            // Group contacts by date (e.g., day)
+            const contactsByDate = {};
+            Object.values(data).forEach(contact => {
+                const date = new Date(contact.timestamp).toLocaleDateString();
+                if (contactsByDate[date]) {
+                    contactsByDate[date]++;
+                } else {
+                    contactsByDate[date] = 1;
+                }
+            });
+
+            const labels = Object.keys(contactsByDate).sort((a, b) => new Date(a) - new Date(b));
+            const values = labels.map(date => contactsByDate[date]);
+
+            if (contactsChart) {
+                contactsChart.destroy();
+            }
+
+            const ctx = document.getElementById('contactsChart').getContext('2d');
+            contactsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Contacts',
+                        data: values,
+                        fill: true,
+                        backgroundColor: 'rgba(234, 179, 8, 0.2)', // Yellow-500 with opacity
+                        borderColor: 'rgba(234, 179, 8, 1)', // Yellow-500
+                        tension: 0.3,
+                        pointBackgroundColor: 'rgba(234, 179, 8, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(234, 179, 8, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                boxWidth: 20,
+                                padding: 15
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.dataset.label || '';
+                                    const value = context.raw || 0;
+                                    return `${label}: ${value}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Contacts'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Toggle Mobile Menu
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.querySelector(".mobile-menu-button");
+            const menu = document.querySelector(".mobile-menu");
+
+            btn.addEventListener("click", () => {
+                menu.classList.toggle("hidden");
+            });
+        });
+    </script>
+
+    <!-- Optional: Include Heroicons if using dynamic icons via JavaScript -->
+    <script src="https://unpkg.com/heroicons@2.0.13/dist/heroicons.min.js"></script>
+</body>
+</html>
