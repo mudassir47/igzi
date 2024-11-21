@@ -3,15 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Igzi Networks | Internet Service</title>
-    <meta name="description" content="Igzi Networks Pvt. Ltd. - Delivering super-fast, reliable Internet services to Navi Mumbai and beyond.">
+    <title>Igzi Networks | OTT Services</title>
+    <meta name="description" content="Igzi Networks Pvt. Ltd. - Offering seamless OTT services with high-speed internet.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" href="assets/logo.jpeg">
-
-    <!-- Firebase Compatibility SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
     <!-- CSS here -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -29,10 +25,10 @@
     <link rel="stylesheet" href="assets/css/nice-select.css">
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- Custom Styles for Package Cards -->
+    <!-- Custom Styles for OTT Cards -->
     <style>
-        /* Package Card Styles */
-        .package-card {
+        /* OTT Card Styles */
+        .ott-card {
             border: 1px solid #e0e0e0;
             border-radius: 10px;
             padding: 25px;
@@ -43,67 +39,60 @@
             position: relative;
             overflow: hidden;
         }
-        .package-card:hover {
+        .ott-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
-        .package-card::before {
+        .ott-card::before {
             content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 5px;
-            background-color: #007bff;
+            background-color: #28a745;
         }
-        .package-card .package-header {
+        .ott-card .ott-header {
             margin-bottom: 15px;
         }
-        .package-card .package-header h3 {
+        .ott-card .ott-header h3 {
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 5px;
-            color: #007bff;
-        }
-        .package-card .package-price {
-            margin-bottom: 15px;
-        }
-        .package-card .package-price h4 {
-            font-size: 28px;
             color: #28a745;
-            margin-bottom: 5px;
         }
-        .package-card .package-price span {
+        .ott-card .ott-description {
+            margin-bottom: 15px;
+            color: #555555;
             font-size: 16px;
-            color: #6c757d;
         }
-        .package-card .package-details ul {
+        .ott-card .ott-details ul {
             list-style: none;
             padding: 0;
             text-align: left;
             margin-bottom: 20px;
         }
-        .package-card .package-details ul li {
+        .ott-card .ott-details ul li {
             margin-bottom: 10px;
             position: relative;
             padding-left: 25px;
             color: #555555;
             font-size: 16px;
         }
-        .package-card .package-details ul li::before {
+        .ott-card .ott-details ul li::before {
             content: "✔";
             position: absolute;
             left: 0;
             color: #28a745;
             font-size: 16px;
         }
-        .package-card .package-footer {
+        .ott-card .ott-footer {
             margin-top: 15px;
         }
-        .package-card .package-footer a {
+        .ott-card .ott-footer a {
             display: inline-block;
             padding: 12px 25px;
-            background-color: #007bff;
+            background-color: #28a745;
             color: #ffffff;
             border-radius: 30px;
             text-decoration: none;
@@ -111,37 +100,40 @@
             font-size: 16px;
             font-weight: 600;
         }
-        .package-card .package-footer a:hover {
-            background-color: #0056b3;
+        .ott-card .ott-footer a:hover {
+            background-color: #1e7e34;
         }
 
-        /* Highlighted Package */
-        .package-card.highlight {
-            border: 2px solid #007bff;
-            background-color: #f0f8ff;
+        /* Highlighted OTT Package */
+        .ott-card.highlight {
+            border: 2px solid #28a745;
+            background-color: #f0fff4;
         }
-        .package-card.highlight::before {
-            background-color: #28a745;
+        .ott-card.highlight::before {
+            background-color: #1e7e34;
         }
-        .package-card.highlight .package-header h3 {
-            color: #28a745;
+        .ott-card.highlight .ott-header h3 {
+            color: #1e7e34;
         }
-        .package-card.highlight .package-price h4 {
-            color: #007bff;
+        .ott-card.highlight .ott-footer a {
+            background-color: #1e7e34;
+        }
+        .ott-card.highlight .ott-footer a:hover {
+            background-color: #155724;
         }
 
         /* Responsive Adjustments */
         @media (max-width: 767px) {
-            .package-card {
+            .ott-card {
                 padding: 20px;
             }
-            .package-card .package-header h3 {
+            .ott-card .ott-header h3 {
                 font-size: 20px;
             }
-            .package-card .package-price h4 {
-                font-size: 24px;
+            .ott-card .ott-description {
+                font-size: 14px;
             }
-            .package-card .package-footer a {
+            .ott-card .ott-footer a {
                 padding: 10px 20px;
                 font-size: 14px;
             }
@@ -155,7 +147,7 @@
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="assets/logo.jpeg"  alt="Igzi Networks Logo">
+                    <img src="assets/logo.jpeg" alt="Igzi Networks Logo">
                 </div>
             </div>
         </div>
@@ -233,273 +225,178 @@
     <!-- header end -->
 
     <main>
-        <!-- slider Area Start-->
-        <div class="slider-area">
-            <div class="slider-active">
-                <!-- Single Slider -->
-                <div class="single-slider slider-height d-flex align-items-center" style="background-image: url('assets/img/slider/slider1.jpg'); background-size: cover;">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xl-7 col-lg-6 col-md-8 col-sm-10">
-                                <div class="hero__caption">
-                                    <h1 data-animation="fadeInUp" data-delay=".4s">Don't suffer the buffer, get super internet.</h1>
-                                    <p data-animation="fadeInUp" data-delay=".6s">Igzi's mission is to deliver a super-fast, reliable Internet that your town deserves! We eat, sleep, and breathe Internet to ensure you stay connected seamlessly.</p>
-                                    <!-- Hero-btn -->
-                                    <div class="hero__btn">
-                                        <a href="packages.html" class="btn hero-btn mb-10" data-animation="fadeInUp" data-delay=".8s">View Packages</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Slider -->
-                <div class="single-slider slider-height d-flex align-items-center" style="background-image: url('assets/img/slider/slider2.jpg'); background-size: cover;">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xl-7 col-lg-6 col-md-8 col-sm-10">
-                                <div class="hero__caption">
-                                    <h1 data-animation="fadeInUp" data-delay=".4s">Reliable and Fast Internet for Everyone.</h1>
-                                    <p data-animation="fadeInUp" data-delay=".6s">Our mission is to be the best broadband provider, offering every city the Internet speeds they deserve at an affordable price.</p>
-                                    <!-- Hero-btn -->
-                                    <div class="hero__btn">
-                                        <a href="packages.html" class="btn hero-btn mb-10" data-animation="fadeInUp" data-delay=".8s">View Packages</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- slider Area End-->
+        <!-- OTT Services Banner Start -->
+      
+        <!-- OTT Services Banner End -->
 
-        <!--? About 1 Start-->
-        <section class="about-low-area section-padding2">
+        <!--? About OTT Services Start -->
+        <section class="about-ott section-padding30">
             <div class="container">
-                <div class="row justify-content-between">
-                    <div class="col-xl-5 col-lg-6 col-md-9">
-                        <!-- about-img -->
-                        <div class="about-img">
-                            <img src="assets/img/gallery/about1.png" alt="About Igzi Networks">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="about-ott-img">
+                            <img src="assets/img/gallery/home-blog3.png" alt="About OTT Services">
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-10">
-                        <div class="about-caption mb-50">
-                            <!-- Section Title -->
-                            <div class="section-tittle mb-35">
-                                <span>About Igzi Networks</span>
-                                <h2>We listen and work together for a great experience.</h2>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="about-ott-content">
+                            <div class="section-tittle mb-30">
+                                <span>Our OTT Services</span>
+                                <h2>High-Speed Internet Optimized for OTT Streaming</h2>
                             </div>
-                            <p>Igzi's mission is to deliver a super-fast, reliable Internet that your town deserves! Because happiness means unlimited super-fast broadband, we eat, sleep, and breathe Internet! Our mission is to be the best broadband provider and give every city the Internet speeds they deserve!</p>
-                        </div>
-                        <a href="about.html" class="btn">Learn More</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- About End-->
-
-        <!--? Service Area Start -->
-        <section class="service-area pb-bottom">
-            <div class="container">
-                <div class="row justify-content-between">
-                    <div class="col-lg-6 col-md-9">
-                        <!-- Section Title -->
-                        <div class="section-tittle section-tittle2 mb-50">
-                            <h2 class="mb-35">Our Mission</h2>
-                            <p>igziNet offers high-speed internet services through a robust and resilient network platform to residential, SME, and corporate customers in Mumbai. We are planning to expand our presence in other cities. Our offerings include:</p>
+                            <p>At Igzi Networks, we understand the importance of uninterrupted streaming. Our OTT services are tailored to provide you with the best possible experience, ensuring that your favorite content is always accessible without any buffering or lag.</p>
                             <ul>
-                                <li>Ring Architecture</li>
-                                <li>High-speed connectivity</li>
-                                <li>24*7 Technical support</li>
+                                <li><i class="fas fa-check-circle text-success"></i> Ultra-fast speeds for HD and 4K streaming</li>
+                                <li><i class="fas fa-check-circle text-success"></i> Reliable connection with minimal downtime</li>
+                                <li><i class="fas fa-check-circle text-success"></i> Seamless integration with popular OTT platforms</li>
+                                <li><i class="fas fa-check-circle text-success"></i> 24/7 customer support for any streaming issues</li>
                             </ul>
-                            <a href="#" class="btn mt-30">View Packages</a>
+                            <a href="#ottPackages" class="btn btn-primary mt-20">Explore OTT Packages</a>
                         </div>
-                    </div>
-                    <div class="col-lg-5">
-                       <div class="row">
-                           <div class="col-lg-6 col-md-4 col-sm-6">
-                                <div class="single-services mb-30 text-center">
-                                    <i class="flaticon-null"></i>
-                                    <p>Perfect Coverage</p>
-                                </div>
-                           </div>
-                           <div class="col-lg-6 col-md-4 col-sm-6">
-                                <div class="single-services mb-30 text-center">
-                                    <i class="flaticon-null-1"></i>
-                                    <p>Live Call Support</p>
-                                </div>
-                           </div>
-                           <div class="col-lg-6 col-md-4 col-sm-6">
-                                <div class="single-services mb-30 text-center">
-                                    <i class="flaticon-null-2"></i>
-                                    <p>Secured Payment</p>
-                                </div>
-                           </div>
-                           <div class="col-lg-6 col-md-4 col-sm-6">
-                                <div class="single-services mb-30 text-center">
-                                    <i class="flaticon-null-3"></i>
-                                    <p>1 Gbps Data Rate</p>
-                                </div>
-                           </div>
-                       </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- Service Area End -->  
+        <!-- About OTT Services End -->
 
-        <!--? Packages Section Start -->
-        <section class="pricing-card-area section-padding2">
+        <!--? OTT Packages Start -->
+        <section class="ott-packages section-padding2" id="ottPackages">
             <div class="container">
                 <!-- Section Title -->
                 <div class="row justify-content-center">
                     <div class="col-xl-8 col-lg-10 col-md-12">
                         <div class="section-tittle text-center mb-100">
-                            <p>Our Pricing Plans</p>
-                            <h2>No Hidden Charges! Choose Your Plan Wisely.</h2>
+                            <p>Our OTT Packages</p>
+                            <h2>Choose the Perfect Package for Your Streaming Needs</h2>
                         </div>
                     </div>
                 </div>
-                <!-- Packages List -->
-                <div class="row" id="packagesContainer">
-                    <!-- Packages will be loaded here dynamically -->
+                <!-- OTT Packages List -->
+                <div class="row">
+                    <!-- Single OTT Package -->
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                        <div class="ott-card">
+                            <div class="ott-header">
+                                <h3>Basic OTT Package</h3>
+                            </div>
+                            <div class="ott-description">
+                                <p>Perfect for casual viewers who enjoy streaming their favorite shows occasionally.</p>
+                            </div>
+                            <div class="ott-details">
+                                <ul>
+                                    <li>₹499 per Month</li>
+                                    <li>₹1,399 per Quarter</li>
+                                    <li>₹2,699 per Half-Year</li>
+                                    <li>₹5,399 per Year</li>
+                                    <li>Installation Charge: Rs 300</li>
+                                    <li>Additional Features: Standard Definition Streaming</li>
+                                </ul>
+                            </div>
+                            <div class="ott-footer">
+                                <a href="contact.html">Select Service</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single OTT Package -->
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                        <div class="ott-card highlight">
+                            <div class="ott-header">
+                                <h3>Premium OTT Package</h3>
+                            </div>
+                            <div class="ott-description">
+                                <p>Ideal for avid streamers who demand high-quality video and multiple device access.</p>
+                            </div>
+                            <div class="ott-details">
+                                <ul>
+                                    <li>₹899 per Month</li>
+                                    <li>₹2,499 per Quarter</li>
+                                    <li>₹4,999 per Half-Year</li>
+                                    <li>₹9,999 per Year</li>
+                                    <li>Installation Charge: Rs 200</li>
+                                    <li>Additional Features: High Definition & 4K Streaming, Multi-Device Access</li>
+                                </ul>
+                            </div>
+                            <div class="ott-footer">
+                                <a href="contact.html">Select Service</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single OTT Package -->
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                        <div class="ott-card">
+                            <div class="ott-header">
+                                <h3>Ultra OTT Package</h3>
+                            </div>
+                            <div class="ott-description">
+                                <p>Designed for households with multiple users requiring the highest streaming quality.</p>
+                            </div>
+                            <div class="ott-details">
+                                <ul>
+                                    <li>₹1,299 per Month</li>
+                                    <li>₹3,999 per Quarter</li>
+                                    <li>₹7,999 per Half-Year</li>
+                                    <li>₹15,999 per Year</li>
+                                    <li>Installation Charge: Rs 100</li>
+                                    <li>Additional Features: 4K Streaming, Unlimited Device Access, Priority Support</li>
+                                </ul>
+                            </div>
+                            <div class="ott-footer">
+                                <a href="contact.html">Select Service</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-        <!-- Packages Section End -->
+        <!-- OTT Packages End -->
 
-        <!-- Latest Offers Start -->
-        <div class="latest-wrapper pb-bottom">
+        <!--? Features Area Start -->
+        <section class="features-area section-padding30">
             <div class="container">
-                <div class="latest-area latest-height section-bg2" data-background="assets/img/gallery/section_bg01.png">
-                    <div class="row align-items-center justify-content-between">
-                        <div class="col-xl-5 col-lg-7">
-                            <div class="latest-caption">
-                                <h2>Check Our Unbelievable Super Fast Broadband Availability in Your Area.</h2>
-                            </div>
-                        </div>
-                        <div class="col-xl-5 col-lg-5 col-md-10">
-                            <div class="latest-subscribe">
-                                <form action="check_availability.html" method="GET">
-                                    <input type="text" name="zipcode" placeholder="Enter Zipcode" required>
-                                    <button type="submit">Check Now</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Latest Offers End -->
-
-        <!--? About-2 Area Start -->
-        <section class="about-area2 testimonial-area section-padding30 fix">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-9 col-sm-9">
-                        <div class="about-caption">
-                            <!-- Section Title -->
-                            <div class="section-tittle mb-55">
-                                <h2>What Our Clients Think About Us!</h2>
-                            </div>
-                            <!-- Testimonial Start -->
-                            <div class="h1-testimonial-active">
-                                <!-- Single Testimonial -->
-                                <div class="single-testimonial">
-                                    <div class="testimonial-caption">
-                                        <p>Igzi Networks provides exceptional service with flexible and convenient plans. Their customer support is top-notch, ensuring that I always stay connected without any hassles.</p>
-                                        <div class="rattiong-caption">
-                                            <span>Rajesh Kumar<span>IT Manager</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single Testimonial -->
-                                <div class="single-testimonial">
-                                    <div class="testimonial-caption">
-                                        <p>The super-fast broadband from Igzi Networks has transformed our business operations. Reliable and affordable - couldn't ask for more!</p>
-                                        <div class="rattiong-caption">
-                                            <span>Anita Desai<span>Entrepreneur</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Add more testimonials as needed -->
-                            </div>
-                            <!-- Testimonial End -->
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-md-11 col-sm-11">
-                        <!-- about-img -->
-                        <div class="about-img2">
-                            <img src="assets/img/gallery/about2.png" alt="Client Testimonials">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- About-2 Area End -->
-
-        <!--? Blog Area Start -->
-        <section class="home-blog-area section-padding30">
-            <div class="container">
-                <!-- Section Title -->
                 <div class="row justify-content-center">
-                    <div class="col-xl-6 col-lg-8 col-md-10 col-sm-10">
-                        <div class="section-tittle text-center mb-90">
-                            <span>Latest News</span>
-                            <h2>Stay Updated with Igzi Networks</h2>
+                    <div class="col-xl-8 col-lg-10 col-md-12">
+                        <div class="section-tittle text-center mb-100">
+                            <p>Why Choose Us</p>
+                            <h2>Top Features of Igzi Networks OTT Services</h2>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <!-- Single Blog Post -->
+                    <!-- Single Feature -->
                     <div class="col-lg-4 col-md-6">
-                        <div class="home-blog-single mb-30">
-                            <div class="blog-img-cap">
-                                <div class="blog-img">
-                                    <img src="assets/img/gallery/home-blog1.png" alt="Blog Post 1">
-                                </div>
-                                <div class="blog-cap">
-                                    <h3><a href="#">Launching Our New 100Mbps Plan!</a></h3>
-                                    <p>October 25, 2024</p>
-                                </div>
+                        <div class="single-features text-center mb-30">
+                            <div class="features-icon">
+                                <i class="fas fa-tachometer-alt"></i>
                             </div>
+                            <h3>High-Speed Connectivity</h3>
+                            <p>Enjoy blazing fast internet speeds optimized for smooth OTT streaming.</p>
                         </div>
                     </div>
-                    <!-- Single Blog Post -->
+                    <!-- Single Feature -->
                     <div class="col-lg-4 col-md-6">
-                        <div class="home-blog-single mb-30">
-                            <div class="blog-img-cap">
-                                <div class="blog-img">
-                                    <img src="assets/img/gallery/home-blog2.png" alt="Blog Post 2">
-                                </div>
-                                <div class="blog-cap">
-                                    <h3><a href="#">Igzi Networks Wins Best ISP Award</a></h3>
-                                    <p>November 10, 2024</p>
-                                </div>
+                        <div class="single-features text-center mb-30">
+                            <div class="features-icon">
+                                <i class="fas fa-shield-alt"></i>
                             </div>
+                            <h3>Secure Streaming</h3>
+                            <p>Your data is protected with our advanced security measures.</p>
                         </div>
                     </div>
-                    <!-- Single Blog Post -->
+                    <!-- Single Feature -->
                     <div class="col-lg-4 col-md-6">
-                        <div class="home-blog-single mb-30">
-                            <div class="blog-img-cap">
-                                <div class="blog-img">
-                                    <img src="assets/img/gallery/home-blog3.png" alt="Blog Post 3">
-                                </div>
-                                <div class="blog-cap">
-                                    <h3><a href="#">Expanding Our Services to New Areas</a></h3>
-                                    <p>December 5, 2024</p>
-                                </div>
+                        <div class="single-features text-center mb-30">
+                            <div class="features-icon">
+                                <i class="fas fa-headset"></i>
                             </div>
+                            <h3>24/7 Support</h3>
+                            <p>Our dedicated support team is here to assist you anytime.</p>
                         </div>
                     </div>
-                    <!-- Add more blog posts as needed -->
+                    <!-- Add more features as needed -->
                 </div>
             </div>
         </section>
-        <!-- Blog Area End -->
+        <!-- Features Area End -->
     </main>
 
     <footer>
@@ -622,7 +519,6 @@
     </div>
 
     <!-- JS here -->
-
     <script src="assets/js/vendor/modernizr-3.5.0.min.js"></script>
     <!-- Jquery, Popper, Bootstrap -->
     <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
@@ -664,79 +560,25 @@
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/main.js"></script>
 
-    <!-- Initialize Firebase and Load Packages -->
+    <!-- Initialize Firebase (If needed for other functionalities) -->
+    <!-- Remove Firebase scripts if not required -->
+    <!--
     <script>
         // Your Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyCjDN2loFBsVmZr3pQJGmVi1ZR3SWpeo4k",
-            authDomain: "igzi-418a7.firebaseapp.com",
-            projectId: "igzi-418a7",
-            storageBucket: "igzi-418a7.appspot.com",
-            messagingSenderId: "428960456482",
-            appId: "1:428960456482:web:11690cac87a7a09320cf7b",
-            measurementId: "G-8LGMW1FGS6"
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID",
+            measurementId: "YOUR_MEASUREMENT_ID"
         };
 
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
-
-        function redirectToWhatsApp(packageData) {
-            const message = `Hi, I am interested in the following package:\n\n` +
-                `- Speed: ${packageData.speed}\n` +
-                `- Price (30 Days): Rs ${packageData.price30}\n` +
-                `- Price (90 Days): Rs ${packageData.price90}\n` +
-                `- Price (180 Days): Rs ${packageData.price180}\n` +
-                `- Price (365 Days): Rs ${packageData.price365}\n` +
-                `- Price (540 Days): Rs ${packageData.price540}\n` +
-                `- Installation Charge: Rs ${packageData.installationCharge}\n` +
-                `- GPON Box Charge: Rs ${packageData.gponCharge}\n\n` +
-                `Please share further details.`;
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappURL = `https://wa.me/+919167634280?text=${encodedMessage}`;
-            window.open(whatsappURL, '_blank');
-        }
-
-        const packagesContainer = document.getElementById('packagesContainer');
-
-        db.ref('packages').on('value', (snapshot) => {
-            packagesContainer.innerHTML = '';
-            snapshot.forEach((childSnapshot) => {
-                const packageData = childSnapshot.val();
-
-                // Create Package Card
-                const packageCard = document.createElement('div');
-                packageCard.className = 'col-xl-4 col-lg-4 col-md-6 col-sm-12';
-
-                // Highlight the Premium Package
-                const highlightClass = packageData.highlight ? 'highlight' : '';
-
-                packageCard.innerHTML = `
-                    <div class="package-card ${highlightClass}">
-                        <div class="package-header">
-                            <h3>${packageData.speed}</h3>
-                        </div>
-                        <div class="package-price">
-                            <h4>Rs ${packageData.price30} <span>/ 30 Days</span></h4>
-                        </div>
-                        <div class="package-details">
-                            <ul>
-                                <li>Rs ${packageData.price90} for 90 Days</li>
-                                <li>Rs ${packageData.price180} for 180 Days</li>
-                                <li>Rs ${packageData.price365} for 365 Days</li>
-                                <li>Rs ${packageData.price540} for 540 Days</li>
-                                <li>Installation Charge: Rs ${packageData.installationCharge}</li>
-                                <li>GPON Box Charge: Rs ${packageData.gponCharge}</li>
-                            </ul>
-                        </div>
-                        <div class="package-footer">
-                            <a href="#" onclick='redirectToWhatsApp(${JSON.stringify(packageData)})'>Select Package</a>
-                        </div>
-                    </div>
-                `;
-                packagesContainer.appendChild(packageCard);
-            });
-        });
     </script>
+    -->
 </body>
 </html>
